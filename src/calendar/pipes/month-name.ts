@@ -1,12 +1,16 @@
 import {Pipe} from '@angular/core';
-import * as moment from 'moment';
+import language_config from '../languages/lang_config';
 
 @Pipe({
-  name: 'monthName'
+    name: 'monthName'
 })
 export class monthName {
-  transform(value, args) {
-    var lang = moment().locale(args);
-    return lang.localeData().months(moment([2012, value - 1]));
-  }
+    private lang: string;
+
+    transform(value, args) {
+        this.lang = args; // Language
+
+        let monthNames = language_config[this.lang];
+        return monthNames[value - 1];
+    }
 }
